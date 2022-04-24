@@ -1,0 +1,31 @@
+.controlers__volume {
+  display: flex;
+  @include down($mobile) {
+    display: none;
+  }
+}
+
+.controlers__volume__button {
+  margin-right: 8px;
+  font-size: 18px;
+  color: rgba($color: #fff, $alpha: 0.7);
+}
+
+.controlers__volume__handler {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 64px;
+}
+
+.controlers__volume__handler__bar {
+  @include bars;
+}
+
+.controlers__volume__handler__range {
+  @extend %range;
+}
+
+.controlers__volume__handler__elapse {
+  @include elapse;
+}

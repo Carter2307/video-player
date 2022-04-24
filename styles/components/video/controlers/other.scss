@@ -1,0 +1,12 @@
+.controlers__other {
+  @extend %inline-center;
+  gap: 14px;
+
+  @include down($mobile) {
+    display: none;
+  }
+}
+.controlers__other__button {
+  font-size: 18px;
+  color: rgba($color: #fff, $alpha: 0.7);
+}

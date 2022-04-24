@@ -1,0 +1,23 @@
+@import "base/reset";
+@import "utils/variables";
+
+@import "base/base";
+@import "base/font";
+
+@import "utils/functions";
+@import "utils/mixins";
+@import "utils/responsive";
+
+//Components
+@import "components/video";
+
+@import "components/video/controlers";
+@import "components/video/controlers/volume";
+@import "components/video/controlers/navigation";
+@import "components/video/controlers/other";
+
+@import "components/video/timer";
+
+@import "components/video/mobile";
+
+@import "pages/home";

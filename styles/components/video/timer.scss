@@ -1,0 +1,47 @@
+.timer {
+  @extend %inline-center;
+  color: #fff;
+
+  @include down($mobile) {
+    flex-grow: 1;
+  }
+}
+
+.timer__starttime {
+  font-size: 12px;
+  font-weight: 700;
+  width: 44px;
+
+  @include down($mobile) {
+    font-size: 10px;
+  }
+}
+
+.timer__progress {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 64px;
+  margin: 0 24px;
+
+  @include down($mobile) {
+    margin: 0 16px;
+  }
+}
+
+.timer__progress__range {
+  @extend %range;
+}
+
+.timer__progress__bar {
+  @include bars;
+}
+
+.timer__progress__elapse {
+  @include elapse;
+}
+
+.timer__endtime {
+  @extend .timer__starttime;
+}
