@@ -14,6 +14,7 @@
 
 .mobile__menu__buttons {
   $radius: 8px;
+   $space : 12px;
 
   display: flex;
   flex-direction: column;
@@ -22,13 +23,21 @@
   bottom: 0;
   right: 0;
 
+   visibility: hidden;
+   opacity: 0;
+
   color: rgba($color: #fff, $alpha: 0.7);
   min-width: 140px;
   border-radius: $radius;
 
-  transform: translateY(calc(-52px - 12px));
+  transform: translateY(-52px - $space);
 
   @include blur($radius);
+
+   &.-isVisible {
+      visibility: visible;
+      opacity: 1;
+   }
 }
 
 .mobile__menu__buttons__item {

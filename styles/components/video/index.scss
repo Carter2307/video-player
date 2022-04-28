@@ -15,8 +15,10 @@ $radius: 16px;
 .videoplayer__controls {
   position: absolute;
   left: 50%;
-  bottom: 32px;
+  //bottom: 32px;
   transform: translatex(-50%);
+
+   @extend .-visible;
 
   padding: 16px;
 
@@ -53,4 +55,21 @@ $radius: 16px;
     width: 90%;
     padding: 2px 16px;
   }
+}
+
+//State
+$ease  : bottom 1s ease, .8s opacity 0s ease, 1s visibility 0s;
+
+.-hidden {
+   opacity: 0!important;
+   visibility: hidden!important;
+   bottom: 0px!important;
+   transition: $ease;
+}
+
+.-visible {
+   opacity: 1;
+   visibility: visible;
+   bottom: 32px;
+   transition: $ease;
 }

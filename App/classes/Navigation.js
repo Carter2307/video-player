@@ -44,8 +44,8 @@ export default class Navigation {
   #addEventListener() {
     this.elements.play.addEventListener("click", this.#play.bind(this))
 
-    this.elements.fwd.addEventListener("click", this.#forward.bind(this))
-    this.elements.rwd.addEventListener("click", this.#backward.bind(this))
+    this.elements.fwd.forEach(el => el.addEventListener("click", this.#forward.bind(this)))
+    this.elements.rwd.forEach(el => el.addEventListener("click", this.#backward.bind(this)))
 
     this.media.addEventListener("ended", this.#stop.bind(this))
   }

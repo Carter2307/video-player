@@ -13,22 +13,29 @@ export default class MediaPlayer extends HTMLElement {
   }
 
   connectedCallback() {
+     this.show = 5000
+     this.timeOudId = 0
     this.type = this.getAttribute("type")
     this.src = this.getAttribute("src")
 
     this.setAttribute("class", "videoplayer")
 
     this.#create(this.src, this.type)
-    this.animate = new Animation()
+    this.scale = new Animation()
     this.#addEventListener()
   }
 
   #getElemnts() {
     this.elements = {
+       controlers : this.querySelector(".videoplayer__controls"),
+       mobile : {
+          menu : document.querySelector(".mobile__menu__buttons"),
+          button : document.querySelector(".mobile__menu__button")
+       },
       navigation: {
         play: document.querySelector("[data-icon=\"icon-Play\"]"),
-        rwd: document.querySelector("[data-icon=\"icon-backward-15-seconds\"]"),
-        fwd: document.querySelector("[data-icon=\"icon-forward-15-seconds\"]"),
+        rwd: Array.from(document.querySelectorAll("[data-icon=\"icon-backward-15-seconds\"]")),
+        fwd: Array.from(document.querySelectorAll("[data-icon=\"icon-forward-15-seconds\"]")),
       },
       volume: {
         button: document.querySelector("[data-icon=\"icon-volume-high\"]"),
@@ -43,7 +50,7 @@ export default class MediaPlayer extends HTMLElement {
       },
       other: {
         pnp: document.querySelector("[data-icon='icon-screenmirroring']"),
-        fullscreen: document.querySelector("[data-icon='icon-maximize-circle']"),
+        fullscreen: Array.from(document.querySelectorAll("[data-icon='icon-maximize-circle']")),
       },
     }
   }
@@ -162,15 +169,15 @@ export default class MediaPlayer extends HTMLElement {
 								<i class="icon-Edit"></i>
 							</button>
 							<ul class="mobile__menu__buttons">
-								<il class="mobile__menu__buttons__item">
-                           <span class="mobile__menu__buttons__item__text">Forward</span>
+								<il class="mobile__menu__buttons__item" data-icon="icon-forward-15-seconds">
+                           <span class="mobile__menu__buttons__item__text" ">Forward</span>
                            <i class="mobile__menu__buttons__item__icon icon-forward-15-seconds"></i>
                         </il>
-                        <il class="mobile__menu__buttons__item">
+                        <il class="mobile__menu__buttons__item" data-icon="icon-backward-15-seconds">
                            <span class="mobile__menu__buttons__item__text">Backward</span>
                            <i class="mobile__menu__buttons__item__icon icon-backward-15-seconds"></i>
                         </il>
-                        <il class="mobile__menu__buttons__item">
+                        <il class="mobile__menu__buttons__item" data-icon="icon-maximize-circle">
                            <span class="mobile__menu__buttons__item__text">Fullscreen</span>
                            <i class="mobile__menu__buttons__item__icon icon-maximize-circle"></i>
                         </il>
@@ -209,29 +216,65 @@ export default class MediaPlayer extends HTMLElement {
     )
   }
 
-  #onFullScreen() {
-    this.elements.other.icon = this.elements.other.fullscreen.querySelector("i")
-    if (!document.fullscreenElement) {
-      this.elements.other.fullscreen.setAttribute("data-icon", "icon-minimize-circle")
-      this.elements.other.icon.setAttribute("class", "icon-minimize-circle")
-      this.requestFullscreen({ navigationUI: "hide" })
-    } else {
-      this.elements.other.fullscreen.setAttribute("data-icon", "icon-maximize-circle")
-      this.elements.other.icon.setAttribute("class", "icon-maximize-circle")
-      document.exitFullscreen()
-    }
+  #onFullScreen(e) {
+     const btn = e.currentTarget
+     const icon = btn.querySelector("i")
+     this.#fullscreenHandler(btn, icon)
+  }
+
+  #fullscreenHandler(btn, icon) {
+     if (!document.fullscreenElement) {
+        btn.setAttribute("data-icon", "icon-minimize-circle")
+        icon.setAttribute("class", "icon-minimize-circle")
+        this.requestFullscreen({ navigationUI: "hide" })
+     } else {
+        btn.setAttribute("data-icon", "icon-maximize-circle")
+        icon.setAttribute("class", "icon-maximize-circle")
+        document.exitFullscreen()
+     }
   }
 
   #onPictureInPicture() {
     this.media.requestPictureInPicture().then((picture) => {
-      console.log("picture in picutre" + picture)
+      console.log("picture in picture" + picture)
     })
   }
 
-  #addEventListener() {
-    this.elements.other.fullscreen.addEventListener("click", this.#onFullScreen.bind(this))
-    this.elements.other.pnp.addEventListener("click", this.#onPictureInPicture.bind(this))
+  #mobileHandler() {
+     this.elements.mobile.menu.classList.toggle("-isVisible")
+}
+
+#onMouseEnter () {
+   if(this.timeOudId !== 0) clearTimeout(this.timeOudId)
+   this.elements.controlers.classList.remove("-hidden")
+}
+
+#onMouseLeave () {
+   setTimeout(() => {
+      this.elements.controlers.classList.add("-hidden")
+   },this.show)
   }
+
+   #onMouseOver () {
+     if(this.event) console.log("true")
+      setTimeout(() => {
+         this.elements.controlers.classList.add("-hidden")
+      },this.show)
+   }
+
+  #addEventListener() {
+     this.addEventListener("mouseenter", this.#onMouseEnter.bind(this))
+     this.addEventListener("mouseleave", this.#onMouseLeave.bind(this))
+     //this.addEventListener("mouseover", this.#onMouseOver.bind(this))
+
+    this.elements.other.fullscreen.forEach(button => {
+       button.addEventListener("click", this.#onFullScreen.bind(this))
+    })
+    this.elements.other.pnp.addEventListener("click", this.#onPictureInPicture.bind(this))
+     this.elements.mobile.button.addEventListener("click", this.#mobileHandler.bind(this))
+  }
+
+
 
   disconnectedCallback() {}
 }
