@@ -1,0 +1,12 @@
+.audioplayer {
+	position: relative;
+	display: grid;
+	background-color: #fff;
+	border: 1px solid gray;
+	border-radius: 3px;
+	color: #000;
+}
+
+.audioplayer .controlers__other {
+	display: none;
+}

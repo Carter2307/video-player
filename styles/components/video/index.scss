@@ -1,9 +1,8 @@
-$radius: 16px;
-
 .videoplayer {
-  position: relative;
-  display: grid;
-  background-color: #000;
+	position: relative;
+	display: grid;
+	background-color: #000;
+	color: #fff;
 }
 
 .videoplayer__video {
@@ -33,21 +32,6 @@ $radius: 16px;
 
   max-height: 98px;
 
-  //   background-color: rgba($color: #000, $alpha: 0.5);
-
-  //   &::before {
-  //     content: "";
-  //     position: absolute;
-  //     top: 0;
-  //     left: 0;
-  //     width: 100%;
-  //     height: 100%;
-  //     display: inline-block;
-  //     border-radius: $radius;
-  //     backdrop-filter: blur(160px);
-  //     z-index: -1;
-  //   }
-
   @include blur($radius);
 
   @include down($mobile) {
@@ -58,7 +42,6 @@ $radius: 16px;
 }
 
 //State
-$ease  : bottom 1s ease, .8s opacity 0s ease, 1s visibility 0s;
 
 .-hidden {
    opacity: 0!important;

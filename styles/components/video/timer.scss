@@ -1,6 +1,6 @@
 .timer {
   @extend %inline-center;
-  color: #fff;
+  color: inherit;
 
   @include down($mobile) {
     flex-grow: 1;

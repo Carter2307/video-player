@@ -10,11 +10,15 @@
 
 //Components
 @import "components/video";
+@import "components/audio";
 
+//Video
 @import "components/video/controlers";
 @import "components/video/controlers/volume";
 @import "components/video/controlers/navigation";
 @import "components/video/controlers/other";
+
+//Audio
 
 @import "components/video/timer";
 
